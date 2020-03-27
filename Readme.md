@@ -11,7 +11,7 @@ MugglePay Supports the majority of Online Commerce Store, including Shopify, WHM
 
 <p align="center">
   <a href=" https://www.mugglepay.com">
-    <img src="http://dcdn.mugglepay.com/pay/celo/celo1.png" />
+    <img src="http://dcdn.mugglepay.com/pay/celo/celo3.png" />
   </a>
 </p>
 
