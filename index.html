@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://cdn.mugglepay.com/dt/pay/logo/mplogo1.png">
+
+    <title>Celo Toolkit powered by MugglePay</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="celo@0.3.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</head>
+
+<body class="bg-light">
+
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Celo Toolkit</h2>
+            <div>
+                <svg width="40" height="40" viewBox="0 0 25 25" fill="none">
+                    <path d="M9.86842 22.3684C13.8653 22.3684 17.1053 19.1284 17.1053 15.1316C17.1053 11.1348 13.8653 7.89476 9.86842 7.89476C5.87158 7.89476 2.63158 11.1348 2.63158 15.1316C2.63158 19.1284 5.87158 22.3684 9.86842 22.3684ZM9.86842 25C4.41842 25 0 20.5816 0 15.1316C0 9.6816 4.41842 5.26318 9.86842 5.26318C15.3184 5.26318 19.7368 9.6816 19.7368 15.1316C19.7368 20.5816 15.3184 25 9.86842 25Z" fill="#FBCC5C"></path>
+                    <path d="M15.1316 17.1053C19.1284 17.1053 22.3684 13.8653 22.3684 9.86842C22.3684 5.87158 19.1284 2.63158 15.1316 2.63158C11.1348 2.63158 7.89476 5.87158 7.89476 9.86842C7.89476 13.8653 11.1348 17.1053 15.1316 17.1053ZM15.1316 19.7368C9.6816 19.7368 5.26318 15.3184 5.26318 9.86842C5.26318 4.41842 9.6816 0 15.1316 0C20.5816 0 25 4.41842 25 9.86842C25 15.3184 20.5816 19.7368 15.1316 19.7368Z" fill="#35D07F"></path>
+                    <path d="M15.4577 19.7369C16.1419 18.9077 16.6324 17.9361 16.8932 16.8932C17.9361 16.6324 18.9077 16.1421 19.7369 15.4579C19.699 16.6658 19.439 17.8563 18.9695 18.9698C17.8561 19.439 16.6656 19.6992 15.4577 19.7369ZM8.10687 8.10687C7.06397 8.36766 6.09239 8.85792 5.26318 9.54213C5.30108 8.33424 5.56108 7.14371 6.03055 6.03029C7.14397 5.56108 8.3345 5.30082 9.54239 5.26318C8.85818 6.09239 8.36766 7.06397 8.10687 8.10687Z" fill="#5EA33B"></path>
+                </svg>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="http://cdn.mugglepay.com/dt/pay/logo/mplogo1.png" height="60px"> &nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+            <p class="lead">Celo Toolkit is open source interface for managing Celo accounts on Web</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7">
+                <h4 class="mb-3">Account Setting</h4> Address:
+                <p id="address"></p>
+                PrivateKey:
+                <p id="privateKey"></p>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Celo Dollar (cUSD)</span>
+                        <p id="stableBalance">0.00</p>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Celo Gold (cGLD)</span>
+                        <p id="goldBalance">0.0000</p>
+                    </li>
+                </ul>
+                <button class="btn btn-primary btn-block" onClick="onGenerateAddress()">Generate Account</button>
+                <br />
+                <a href="https://celo.org/build/faucet" rel="noopener noreferrer" target="_blank">
+                    <button class="btn btn-success btn-block addressaction" id="buttontopup" disabled>Topup (Celo Faucet)</button>
+                </a>
+                <br />
+                <br />
+                <input type="text" class="form-control" id="privateKeyInput" placeholder="Enter Private Key - starting with 0x">
+                <button class="btn btn-secondary btn-block" onClick="onLoadPrivateKey()">
+                    Import Private Keys
+                </button>
+                <br />
+                <button class="btn btn-light btn-block" onClick="onLoadKeyClicked()">
+                    Load Seed Phases
+                </button>
+            </div>
+            <div class="col-md-5">
+                <h4 class="mb-3">Pay</h4>
+                <div id="paycomponentempty">
+                    Please Import Account or Create Account First
+                </div>
+                <div id="paycomponent">
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">From</h6>
+                            </div>
+                            <span class="text-muted" id="from">N/A</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Network</span>
+                            <span>Alfajores</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Currency</span>
+                            <strong>cUSD</strong>
+                        </li>
+                    </ul>
+                    Receiving Address:
+                    <input type="text" class="form-control" id="to" placeholder="Address string starts with 0x"> Amount:
+                    <input type="number" class="form-control" id="amount">
+                    <br />
+                    <button class="btn btn-primary btn-block addressaction" onClick="sendPayment()" disabled>Pay</button>
+                    <br />
+                    <br />
+                    <p id="paystatus"></p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">&copy; MugglePay 2018-2020</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="http://celo.org/">Celo Toolkit</a></li>
+                <br />
+                <li class="list-inline-item"><a href="http://mugglepay.com/">Powered by MugglePay</a></li>
+            </ul>
+        </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+        $("#paycomponent").css("display", "none");
+        $("#buttontopup").css("display", "none");
+
+        var NODE_URL = 'https://alfajores-forno.celo-testnet.org'
+        var contractkit = require('@celo/contractkit')
+        var kit = contractkit.newKit(NODE_URL)
+        var web3;
+        if (typeof window.web3 !== "undefined" && typeof window.web3.currentProvider !== "undefined") {
+            web3 = new Web3(window.web3.currentProvider);
+        } else {
+            web3 = new Web3();
+        }
+
+        function getBalance() {
+            var address = $("#address").text();
+            if (!address || address.length < 2) {
+                return;
+            }
+            kit.contracts.getStableToken().then(function(stableToken) {
+                stableToken.balanceOf(address).then(function(stableBalance) {
+                    var weiAmount = web3.utils.fromWei(stableBalance.toString())
+                    $("#stableBalance").html(weiAmount)
+                })
+            })
+
+            kit.contracts.getGoldToken().then(function(goldToken) {
+                goldToken.balanceOf(address).then(function(goldBalance) {
+                    var weiAmount = web3.utils.fromWei(goldBalance.toString())
+                    $("#goldBalance").html(weiAmount)
+                })
+            })
+        }
+
+        function onLoadKeyClicked() {
+            alert('Loading from Seed Phase is not available yet. Please load from Private Key or generate a new account and topup.');
+        }
+
+        function onAddressHelper(data) {
+            if (data && data.address) {
+                var explorer = "https://alfajores-blockscout.celo-testnet.org/address/" + data.address + "/transactions";
+                $("#address").html('<a href="' + explorer + '" rel="noopener noreferrer" target="_blank">' + data.address + '</a>')
+                $("#from").html(data.address)
+                $("#privateKey").html(data.privateKey)
+                $("#paycomponent").css("display", "block");
+                $("#paycomponentempty").css("display", "none");
+                $("#buttontopup").css("display", "block");
+
+                // get address balance
+                getBalance();
+
+                // enable pay and topup
+                var buttons = $("button.addressaction");
+                for (var i = 0; i < buttons.length; i += 1) {
+                    var button = buttons[i];
+                    button.disabled = false;
+                }
+            } else {
+                $("#address").html("Getting address error, please use chrome browser and retry again.")
+            }
+        }
+
+        function onGenerateAddress() {
+            var data = web3.eth.accounts.create();
+            onAddressHelper(data);
+        }
+
+        function onLoadPrivateKey() {
+            var privateKey = $("#privateKeyInput").val();
+            if (!privateKey || privateKey.length < 2) {
+                alert('Please enter private key. (A String starting with 0x)');
+                return;
+            }
+            var data = web3.eth.accounts.privateKeyToAccount(privateKey);
+            console.log(data);
+            onAddressHelper(data);
+        }
+
+        async function sendPaymentUtil(params, account) {
+            const recipient = params.to
+            const amount = params.amount
+            const token = params.token
+
+            const weiTransferAmount = web3.utils.toWei(amount, 'ether')
+            const kit = contractkit.newKit(NODE_URL)
+
+            // Set up your account in contract kit
+            kit.addAccount(account.privateKey)
+            kit.defaultAccount = account.address
+
+            // Get the right token contract
+            let contract
+            if (token.toLowerCase() === 'cusd') {
+                contract = await kit.contracts.getStableToken()
+            } else if (token.toLowerCase() === 'cgld') {
+                contract = await kit.contracts.getGoldToken()
+            }
+            console.log(recipient, amount);
+            $("#paystatus").html("Submitting transaction on blockchain.");
+            try {
+                const tx = await contract.transfer(recipient, weiTransferAmount).send()
+                const receipt = await tx.waitReceipt()
+                if (receipt && receipt.blockHash) {
+                    var hrefComponent = '<a href="https://alfajores-blockscout.celo-testnet.org/search?q=' + receipt.blockHash + '" target="_blank">Check Status on Celo Blockchain</a>';
+                    $("#paystatus").html(hrefComponent);
+                } else {
+                    $("#paystatus").html("Cannot Find the TX. Please check explorer later.");
+
+                }
+            } catch (error) {
+                $("#paystatus").html("Get Transaction Error. Please double check the address and amount.");
+                console.error('Error ', error)
+            } finally {
+                kit.stop()
+            }
+        }
+
+        function sendPayment() {
+            var to = $("#to").val();
+            var amount = $("#amount").val();
+            if (!to || !amount) {
+                alert('Please enter correct address and amount.');
+                return;
+            }
+            const params = {
+                to,
+                amount,
+                token: 'cUSD'
+            };
+
+            const account = {
+                address: $("#address").text(),
+                privateKey: $("#privateKey").text()
+            };
+            sendPaymentUtil(params, account)
+        }
+    </script>
+</body>
+
+</html>
