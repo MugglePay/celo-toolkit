@@ -1,10 +1,53 @@
 # Celo Toolkit x MugglePay
 
-
 Dear Celo and MugglePay supporters,
 
 Celo Toolkit is the premier free, open source interface for managing Celo accounts on Web. Create, transfer and more with Celo and Pay with MugglePay! Checkout the cool community!
 
+### Getting Started
+
+One easy way to experiment with the Alfajores Testnet is to play with it online. Start with Celo now in 1 minutes. 
+
+Go to [Celo Toolkit](http://celo.mugglepay.com/), and it's your web wallet. Phone number or app downloads are not necessary.
+
+### Create an account
+
+Click on the button 'Generate Account'. It will generates your Celo account for you, which includes address and PrivateKey as follows:
+
+> Address: 0x1bD6a6c2957194AF6888a950fB9B49ac3012a5d9
+> PrivateKey: 0x7ed5e09e3725984021fed755ef08f47361086ab514dbb17c60fb0acd5f4f3fb6
+
+<p align="center">
+  <a href=" https://www.mugglepay.com">
+    <img src="http://dcdn.mugglepay.com/pay/celo/celo5.png" />
+  </a>
+</p>
+
+### Get More Funds
+
+If you don't have balance in your account, please click the [Topup (Celo Faucet)](https://celo.org/build/faucet) button. It will give you 10 cUSD and 5 cGLD for free.
+
+
+If you already have an account, click 'Import Private Keys', and it will load your account and show your account balance.
+
+
+### Pay with Celo on Web
+
+Once you have Celo Dollar in your account, you can make an online payment to others. Enter the recipient address and amount, and then click 'Pay'.
+
+The transaction will be sent to Celo network, and you can check the explorer by clicking 'Check Status on Celo Blockchain'.
+
+<p align="center">
+  <a href=" https://www.mugglepay.com">
+    <img src="http://dcdn.mugglepay.com/pay/celo/celo6.png" />
+  </a>
+</p>
+
+### Run it locally
+
+Feel free to download from github. It's html and javascript files. No installment is needed.
+
+ [Github: Celo Toolkit](https://github.com/MugglePay/celo-toolkit.git)
 
 ### Create an Invoice on your merchant stores
 MugglePay Supports the majority of Online Commerce Store, including Shopify, WHMCS, etc. Merchants can accept Celo as a payment in 5 minutes.
@@ -15,29 +58,12 @@ MugglePay Supports the majority of Online Commerce Store, including Shopify, WHM
   </a>
 </p>
 
-### Easy for New Friends to Celo
-It's super easy for you to become a Celo HODLER. You can start creating your account on Web in 1 minute!
+### Security
 
-<p align="center">
-  <a href=" https://www.mugglepay.com">
-    <img src="http://dcdn.mugglepay.com/pay/celo/celo5.png" />
-  </a>
-</p>
+Please copy or write down the PrivateKey and keep it safe. It shows only once.
 
-### Pay with Celo on Web
-No matter what devices you are using, Celo Toolkit help you pay Celo at your convenience.
+The website is targeted for the testnet now, and more security about the private keys management will be taken more seriously for the mainnet.
 
-<p align="center">
-  <a href=" https://www.mugglepay.com">
-    <img src="http://dcdn.mugglepay.com/pay/celo/celo6.png" />
-  </a>
-</p>
+Source code is open-sourced. The account is generated and showed on the client side.
 
-
-## How To Connect to Celo Network
-
-The code contains celo@0.3.1.js, which is generated from Celo NodeJS SDK (@celo/contractkit). It connects with the Celo blockchain. The way to generate js file for the client side is by running browserify.
-
-browserify -r @celo/contractkit  > celo@0.3.1.js
-
-
+We used the version celo@0.3.1, which is generated from Celo NodeJS SDK (@celo/contractkit). It connects with the Celo blockchain.

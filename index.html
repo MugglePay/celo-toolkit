@@ -14,7 +14,8 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="celo@0.3.1.js"></script>
+    <script type="text/javascript" src="celo@0.3.1.js"></script>
+    <script type="text/javascript" src="jr-qrcode.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 </head>
 
@@ -41,6 +42,7 @@
                 <p id="address"></p>
                 PrivateKey:
                 <p id="privateKey"></p>
+                <img id="imgQrCode" style="width: 75px;" />
                 <ul class="list-group mb-3">
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Celo Dollar (cUSD)</span>
@@ -162,6 +164,10 @@
                 $("#paycomponentempty").css("display", "none");
                 $("#buttontopup").css("display", "block");
 
+                var qrcodeStr = '{"address":"' + data.address + '"}';
+                var imgBase64 = jrQrcode.getQrBase64(qrcodeStr);
+                $("#imgQrCode").attr('src', imgBase64);
+
                 // get address balance
                 getBalance();
 
@@ -190,6 +196,10 @@
             var data = web3.eth.accounts.privateKeyToAccount(privateKey);
             console.log(data);
             onAddressHelper(data);
+
+            var hashedKey = privateKey.substring(0, 8) + '****' + privateKey.substring(privateKey.length - 4);
+            $("#privateKey").html(hashedKey)
+            // $("#privateKeyInput").val(hashedKey);
         }
 
         async function sendPaymentUtil(params, account) {
