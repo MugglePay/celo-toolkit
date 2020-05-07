@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="http://cdn.mugglepay.com/dt/pay/logo/mplogo1.png">
+    <link rel="icon" href="https://cdn.mugglepay.com/dt/pay/logo/mplogo1.png">
 
     <title>Celo Toolkit powered by MugglePay</title>
 
@@ -38,7 +38,9 @@
 
         <div class="row">
             <div class="col-md-7">
-                <h4 class="mb-3">Account Setting</h4> Address:
+                <h4 class="mb-3">Account Setting (Testnet Only)</h4>
+                Address:
+                <button class="btn" id="buttonbalance" onClick="getBalance()">🔄 Balance</button>
                 <p id="address"></p>
                 PrivateKey:
                 <p id="privateKey"></p>
@@ -55,10 +57,6 @@
                 </ul>
                 <button class="btn btn-primary btn-block" onClick="onGenerateAddress()">Generate Account</button>
                 <br />
-                <a href="https://celo.org/build/faucet" rel="noopener noreferrer" target="_blank">
-                    <button class="btn btn-success btn-block addressaction" id="buttontopup" disabled>Topup (Celo Faucet)</button>
-                </a>
-                <br />
                 <br />
                 <input type="text" class="form-control" id="privateKeyInput" placeholder="Enter Private Key - starting with 0x">
                 <button class="btn btn-secondary btn-block" onClick="onLoadPrivateKey()">
@@ -74,6 +72,14 @@
                 <div id="paycomponentempty">
                     Please Import Account or Create Account First
                 </div>
+                <div id="paycomponenttopup">
+                    Please topup your account and click Refresh buttton to get your balance.
+                </div>
+                <br />
+                <a href="https://celo.org/build/faucet" rel="noopener noreferrer" target="_blank">
+                    <button class="btn btn-success btn-block addressaction" id="buttontopup" disabled>Topup (Celo Faucet)</button>
+                </a>
+                <br />
                 <div id="paycomponent">
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -118,11 +124,18 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script>
         $("#paycomponent").css("display", "none");
+        $("#paycomponenttopup").css("display", "none");
         $("#buttontopup").css("display", "none");
+        $("#buttonbalance").css("display", "none");
 
-        var NODE_URL = 'https://alfajores-forno.celo-testnet.org'
-        var contractkit = require('@celo/contractkit')
-        var kit = contractkit.newKit(NODE_URL)
+        // var NODE_URL = 'https://alfajores-forno.celo-testnet.org'
+        var NODE_URL = 'https://alfajores-forno.celo-testnet.org';
+        // TODO: Remove the CORS proxy
+        // https://medium.com/@dtkatz/3-ways-to-fix-the-cors-error-and-how-access-control-allow-origin-works-d97d55946d9
+        // var PROXY_NODE_URL = NODE_URL;
+        var PROXY_NODE_URL = 'https://cors-anywhere.herokuapp.com/' + NODE_URL;
+        var contractkit = require('@celo/contractkit');
+        var kit = contractkit.newKit(PROXY_NODE_URL)
         var web3;
         if (typeof window.web3 !== "undefined" && typeof window.web3.currentProvider !== "undefined") {
             web3 = new Web3(window.web3.currentProvider);
@@ -141,11 +154,17 @@
                     $("#stableBalance").html(weiAmount)
                 })
             })
-
             kit.contracts.getGoldToken().then(function(goldToken) {
                 goldToken.balanceOf(address).then(function(goldBalance) {
                     var weiAmount = web3.utils.fromWei(goldBalance.toString())
                     $("#goldBalance").html(weiAmount)
+                    if (parseFloat(weiAmount) > 0) {
+                        $("#paycomponent").css("display", "block");
+                        $("#paycomponenttopup").css("display", "none");
+                    } else {
+                        $("#paycomponent").css("display", "none");
+                        $("#paycomponenttopup").css("display", "block");
+                    }
                 })
             })
         }
@@ -160,9 +179,9 @@
                 $("#address").html('<a href="' + explorer + '" rel="noopener noreferrer" target="_blank">' + data.address + '</a>')
                 $("#from").html(data.address)
                 $("#privateKey").html(data.privateKey)
-                $("#paycomponent").css("display", "block");
                 $("#paycomponentempty").css("display", "none");
                 $("#buttontopup").css("display", "block");
+                $("#buttonbalance").css("display", "block");
 
                 var qrcodeStr = '{"address":"' + data.address + '"}';
                 var imgBase64 = jrQrcode.getQrBase64(qrcodeStr);
