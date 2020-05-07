@@ -73,7 +73,7 @@
                     Please Import Account or Create Account First
                 </div>
                 <div id="paycomponenttopup">
-                    Please topup your account and click Refresh buttton to get your balance.
+                    Please topup your account and refresh your balance. You need to have Celo Gold to make a transaction.
                 </div>
                 <br />
                 <a href="https://celo.org/build/faucet" rel="noopener noreferrer" target="_blank">
@@ -216,7 +216,8 @@
             console.log(data);
             onAddressHelper(data);
 
-            var hashedKey = privateKey.substring(0, 8) + '****' + privateKey.substring(privateKey.length - 4);
+            // var hashedKey = privateKey.substring(0, 8) + '****' + privateKey.substring(privateKey.length - 4);
+            var hashedKey = privateKey;
             $("#privateKey").html(hashedKey)
             // $("#privateKeyInput").val(hashedKey);
         }
@@ -230,6 +231,7 @@
             const kit = contractkit.newKit(PROXY_NODE_URL)
 
             // Set up your account in contract kit
+            console.log(account.privateKey)
             kit.addAccount(account.privateKey)
             kit.defaultAccount = account.address
 
