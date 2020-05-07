@@ -227,7 +227,7 @@
             const token = params.token
 
             const weiTransferAmount = web3.utils.toWei(amount, 'ether')
-            const kit = contractkit.newKit(NODE_URL)
+            const kit = contractkit.newKit(PROXY_NODE_URL)
 
             // Set up your account in contract kit
             kit.addAccount(account.privateKey)
