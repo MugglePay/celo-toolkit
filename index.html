@@ -25,101 +25,186 @@
         <div class="py-5 text-center">
             <h2>Celo Toolkit</h2>
             <div>
-                <svg width="40" height="40" viewBox="0 0 25 25" fill="none">
-                    <path d="M9.86842 22.3684C13.8653 22.3684 17.1053 19.1284 17.1053 15.1316C17.1053 11.1348 13.8653 7.89476 9.86842 7.89476C5.87158 7.89476 2.63158 11.1348 2.63158 15.1316C2.63158 19.1284 5.87158 22.3684 9.86842 22.3684ZM9.86842 25C4.41842 25 0 20.5816 0 15.1316C0 9.6816 4.41842 5.26318 9.86842 5.26318C15.3184 5.26318 19.7368 9.6816 19.7368 15.1316C19.7368 20.5816 15.3184 25 9.86842 25Z" fill="#FBCC5C"></path>
-                    <path d="M15.1316 17.1053C19.1284 17.1053 22.3684 13.8653 22.3684 9.86842C22.3684 5.87158 19.1284 2.63158 15.1316 2.63158C11.1348 2.63158 7.89476 5.87158 7.89476 9.86842C7.89476 13.8653 11.1348 17.1053 15.1316 17.1053ZM15.1316 19.7368C9.6816 19.7368 5.26318 15.3184 5.26318 9.86842C5.26318 4.41842 9.6816 0 15.1316 0C20.5816 0 25 4.41842 25 9.86842C25 15.3184 20.5816 19.7368 15.1316 19.7368Z" fill="#35D07F"></path>
-                    <path d="M15.4577 19.7369C16.1419 18.9077 16.6324 17.9361 16.8932 16.8932C17.9361 16.6324 18.9077 16.1421 19.7369 15.4579C19.699 16.6658 19.439 17.8563 18.9695 18.9698C17.8561 19.439 16.6656 19.6992 15.4577 19.7369ZM8.10687 8.10687C7.06397 8.36766 6.09239 8.85792 5.26318 9.54213C5.30108 8.33424 5.56108 7.14371 6.03055 6.03029C7.14397 5.56108 8.3345 5.30082 9.54239 5.26318C8.85818 6.09239 8.36766 7.06397 8.10687 8.10687Z" fill="#5EA33B"></path>
-                </svg>
+                <img src="https://cdn.mugglepay.com/pay/celo/celo-logo.png" height="50px" style="padding-top: 10px;"> &nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="http://cdn.mugglepay.com/dt/pay/logo/mplogo1.png" height="60px"> &nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="http://cdn.mugglepay.com/dt/pay/logo/mplogo1.png" height="50px"> &nbsp;&nbsp;&nbsp;&nbsp;
             </div>
-            <p class="lead">Celo Toolkit is open source interface for managing Celo accounts on Web</p>
+            <p class="lead">
+                Web interface for managing Celo accounts
+                <a href="https://github.com/MugglePay/celo-toolkit">
+                    <img src="https://github.githubassets.com/pinned-octocat.svg" height="20px"/>
+                </a>
+            </p>
+            <p style="font-size: 12px;">Donation: 0x85431F0E0cE9d501E0175B5a6431179734DCf39D</p>
+            <p class="celodetail" style="display: none;">
+                <a href="/">
+                    < Back to Main Page
+                </a>
+            </p>
         </div>
 
-        <div class="row">
-            <div class="col-md-7">
-                <h4 class="mb-3">Account Setting (Testnet Only)</h4>
-                Address:
-                <button class="btn" id="buttonbalance" onClick="getBalance()">🔄 Balance</button>
-                <p id="address"></p>
-                PrivateKey:
-                <p id="privateKey"></p>
-                <img id="imgQrCode" style="width: 75px;" />
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Celo Dollar (cUSD)</span>
-                        <p id="stableBalance">0.00</p>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Celo Gold (cGLD)</span>
-                        <p id="goldBalance">0.0000</p>
-                    </li>
-                </ul>
-                <button class="btn btn-primary btn-block" onClick="onGenerateAddress()">Generate Account</button>
-                <br />
-                <br />
-                <input type="text" class="form-control" id="privateKeyInput" placeholder="Enter Private Key - starting with 0x">
-                <button class="btn btn-secondary btn-block" onClick="onLoadPrivateKey()">
-                    Import Private Keys
-                </button>
-                <p>To save our time, use this private key for testing: 0x40ebc0d835965269fe26f78246d63a0c91d660fa477f61425487cdd271e2d65c</p>
-                <br />
-<!--                 <button class="btn btn-light btn-block" onClick="onLoadKeyClicked()">
-                    Load Seed Phases
-                </button> -->
+        <div class="celowelcome">
+            <h4 class="mb-3">Welcome!</h4>
+            The Celo community awaits (Celo Alfajores Testnet).
+            <br />
+            Please select your Celo journey.
+            We strongly recommend <b>Guest Account</b> for the first time.
+            <br />
+            <br />
+        </div>
+        <div id="celoselect" class="row">
+            <div class="col-md-4">
+                <div class="card" onClick="onCeloSelect('demouser')">
+                      <div class="card-body">
+                        <h5 class="card-title">Guest Account 👍</h5>
+                        <p class="card-text">Account with balance. Good to go!</p>
+                      </div>
+                </div>
             </div>
-            <div class="col-md-5">
-                <h4 class="mb-3">Pay</h4>
-                <div id="paycomponentempty">
-                    Please Import Account or Create Account First
+            <div class="col-md-4">
+                <div class="card" onClick="onCeloSelect('newuser')">
+                      <div class="card-body">
+                        <h5 class="card-title">New User</h5>
+                        <p class="card-text">Generate a brand new Celo account.</p>
+                      </div>
                 </div>
-                <div id="paycomponenttopup">
-                    Please topup your account and refresh your balance. You need to have Celo Gold to make a transaction.
+            </div>
+            <div class="col-md-4">
+                <div class="card" onClick="onCeloSelect('loaduser')">
+                      <div class="card-body">
+                        <h5 class="card-title">Restore account</h5>
+                        <p class="card-text">Import using your account private key.</p>
+                      </div>
                 </div>
-                <br />
-                <a href="https://celo.org/build/faucet" rel="noopener noreferrer" target="_blank">
-                    <button class="btn btn-success btn-block addressaction" id="buttontopup" disabled>Topup (Celo Faucet)</button>
-                </a>
-                <br />
-                <div id="paycomponent">
-                    <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 class="my-0">From</h6>
-                            </div>
-                            <span class="text-muted" id="from">N/A</span>
+            </div>
+        </div>
+        <div id="celoload" class="row" style="display: none;padding: 20px">
+            <br />
+            <div class="row">
+                <div class="col-md-8">
+                    <input type="text" class="form-control" id="privateKeyInput" placeholder="Enter Private Key - starting with 0x">
+                    <br />
+                    <button class="btn btn-secondary btn-block" onClick="onLoadPrivateKey()">
+                        Import Private Keys
+                    </button>
+                    <br />
+                    <p>To save time, feel free to use this private key for testing: 0x40ebc0d835965269fe26f78246d63a0c91d660fa477f61425487cdd271e2d65c</p>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+
+        <div class="celodetail" style="display: none;">
+            <div class="row">
+                <div class="col-md-7">
+                    <h4 class="mb-3">Celo Account (Alfajores Testnet)</h4>
+
+                    <h6 class="mb-3">Account Address: </h6>
+                    <p id="address"></p>
+                    <h6 class="mb-3">Account QR Code: </h6>
+                    <img id="imgQrCode" style="width: 75px;" />
+                    <br />
+                    <br />
+                    <h6 class="mb-3">Account Balance: </h6>
+                    <div class="mb-3 btn" style="width: 50%;text-align: left;" id="buttonbalance" onClick="getBalance()">🔄 Reload Balance </div>
+                    <div class="mb-3 btn" style="width: 50%;text-align: left;" onClick="getBalance()">
+                        <a href="https://celo.org/build/faucet" rel="noopener noreferrer" target="_blank">
+                        💰 Celo Faucet
+                        </a>
+                    </div>
+                    <ul class="list-group mb-3" style="width: 60%;">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>
+                                <img src="https://cdn.mugglepay.com/pay/celo/cusd.png" height="25px">
+                                Celo Dollar (cUSD)
+                            </span>
+                            <p class="stableBalance">0.0000</p>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
-                            <span>Network</span>
-                            <span>Alfajores</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>Currency</span>
-                            <strong>cUSD</strong>
+                            <span>
+                                <img src="https://cdn.mugglepay.com/pay/celo/cgld.png" height="25px">
+                                Celo Gold (cGLD)
+                            </span>
+                            <p id="goldBalance">0.0000</p>
                         </li>
                     </ul>
-                    Receiving Address:
-                    <input type="text" class="form-control" id="to" placeholder="Address string starts with 0x"> Amount:
-                    <input type="number" class="form-control" id="amount">
-                    <br />
-                    <button class="btn btn-primary btn-block addressaction" onClick="sendPayment()" disabled>Pay</button>
-                    <br />
-                    <br />
-                    <p id="paystatus"></p>
+                    <h6 class="mb-3">
+                        <img src="https://cdn.mugglepay.com/pay/celo/key2.png" height="25px">
+                        Account Private Key: 
+                    </h6>
+                    <p id="privateKey" style="font-size: 12px;"></p>
+                </div>
+                <div class="col-md-5">
+                    <h4 class="mb-3">
+                        Pay
+                    </h4>
+                    <div id="paycomponentempty">
+                        Please Import Account or Create Account First
+                        <br />
+                        <br />
+                    </div>
+                    <div id="paycomponenttopup">
+                        Please topup your account and reload your balance. You need to have Celo Gold to make a transaction.
+                        <br />
+                        <br />
+                    </div>
+                    <div id="paycomponent">
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">From</h6>
+                                </div>
+                                <span class="text-muted" id="from" style="font-size: 12px;">N/A</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>
+                                    <img src="https://cdn.mugglepay.com/pay/celo/cusd.png" height="20px">
+                                    Balance
+                                </span>
+                                <span>
+                                    <div class="stableBalance">0.0000</div>
+                                    cUSD
+                                </span>
+                            </li>
+                        </ul>
+                        &nbsp;Recipient Address:
+                        <input type="text" class="form-control" id="to" placeholder="Address starts with 0x">
+                        <br />
+                        &nbsp;Amount:
+                        <input type="number" class="form-control" id="amount">
+                        <br />
+                        <button class="btn btn-primary btn-block addressaction" onClick="sendPayment()" disabled>
+                            <img src="https://cdn.mugglepay.com/pay/celo/send2.png" height="25px">
+                            Pay
+                        </button>
+                        <br />
+                        <p id="paystatus">BlockChain Status</p>
+                        <br />
+                    </div>
+                    <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">Merchants accepting Celo</h5>
+                            <p class="card-text">Explore thousands of online store accepting Celo (Awaiting Celo Mainnet).</p>
+                            <a href="https://whmcs.welation.io/" target="_blank" class="btn btn-secondary">Purchase Online (Testnet)</a>
+                            <br />
+                            <br />
+                            <iframe src="https://www.youtube.com/embed/sFEeL6LEAv8?start=37" style="width: 400px;height: 300px;">
+                            </iframe>
+                          </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <footer class="my-5 pt-5 text-muted text-center text-small">
             <ul class="list-inline">
-                <li class="list-inline-item"><a href="http://celo.org/">Celo Toolkit</a></li>
+                <li class="list-inline-item"><a href="https://github.com/MugglePay/celo-toolkit">OpenSource @ Github</a>
+                </li>
                 <br />
-                <li class="list-inline-item"><a href="https://mugglepay.com">&copy; MugglePay 2018-2020</a></li>
-                <br />
-                <li class="list-inline-item"><a href="https://github.com/MugglePay/celo-toolkit">Github</a></li>
-                <li class="list-inline-item"><a href="https://twitter.com/paymuggle">Twitter</a></li>
-
-
+                <li class="list-inline-item"><a href="http://celo.org/">Celo Org</a></li>
+                X&nbsp;
+                <li class="list-inline-item"><a href="https://mugglepay.com">&copy; MugglePay</a></li>
             </ul>
         </footer>
     </div>
@@ -137,8 +222,8 @@
         var NODE_URL = 'https://alfajores-forno.celo-testnet.org';
         // TODO: Remove the CORS proxy
         // https://medium.com/@dtkatz/3-ways-to-fix-the-cors-error-and-how-access-control-allow-origin-works-d97d55946d9
-        // var PROXY_NODE_URL = NODE_URL;
-        var PROXY_NODE_URL = 'https://cors-anywhere.herokuapp.com/' + NODE_URL;
+        var PROXY_NODE_URL = NODE_URL;
+        // var PROXY_NODE_URL = 'https://cors-anywhere.herokuapp.com/' + NODE_URL;
         var contractkit = require('@celo/contractkit');
         var kit = contractkit.newKit(PROXY_NODE_URL)
         var web3;
@@ -146,6 +231,35 @@
             web3 = new Web3(window.web3.currentProvider);
         } else {
             web3 = new Web3();
+        }
+
+        function onCeloSelectDetail() {
+            $(".celodetail").css("display", "block");
+            $(".celowelcome").css("display", "none");
+            $("#celoselect").css("display", "none");
+            $("#celoload").css("display", "none");
+        }
+
+        function onCeloSelect(element) {
+            if (element === 'newuser') {
+                onGenerateAddress();
+                onCeloSelectDetail();
+            } else if (element === 'demouser') {
+                var demoPrivateKey = '0x40ebc0d835965269fe26f78246d63a0c91d660fa477f61425487cdd271e2d65c';
+                onLoadPrivateKeyHelper(demoPrivateKey);
+                onCeloSelectDetail();
+            } else if (element === 'loaduser') {
+                $("#celoload").css("display", "block");
+                $("#celoselect").css("display", "none");
+            }
+        }
+
+        function formatNum(val) {
+            if (!val) {
+                return 0;
+            }
+            var floatVal = parseFloat(val);
+            return floatVal.toFixed(4);
         }
 
         function getBalance() {
@@ -156,13 +270,13 @@
             kit.contracts.getStableToken().then(function(stableToken) {
                 stableToken.balanceOf(address).then(function(stableBalance) {
                     var weiAmount = web3.utils.fromWei(stableBalance.toString())
-                    $("#stableBalance").html(weiAmount)
+                    $(".stableBalance").html(formatNum(weiAmount))
                 })
             })
             kit.contracts.getGoldToken().then(function(goldToken) {
                 goldToken.balanceOf(address).then(function(goldBalance) {
                     var weiAmount = web3.utils.fromWei(goldBalance.toString())
-                    $("#goldBalance").html(weiAmount)
+                    $("#goldBalance").html(formatNum(weiAmount))
                     if (parseFloat(weiAmount) > 0) {
                         $("#paycomponent").css("display", "block");
                         $("#paycomponenttopup").css("display", "none");
@@ -211,12 +325,7 @@
             onAddressHelper(data);
         }
 
-        function onLoadPrivateKey() {
-            var privateKey = $("#privateKeyInput").val();
-            if (!privateKey || privateKey.length < 2) {
-                alert('Please enter private key. (A String starting with 0x)');
-                return;
-            }
+        function onLoadPrivateKeyHelper(privateKey) {
             var data = web3.eth.accounts.privateKeyToAccount(privateKey);
             console.log(data);
             onAddressHelper(data);
@@ -225,6 +334,16 @@
             var hashedKey = privateKey;
             $("#privateKey").html(hashedKey)
             // $("#privateKeyInput").val(hashedKey);
+            onCeloSelectDetail();
+        }
+
+        function onLoadPrivateKey() {
+            var privateKey = $("#privateKeyInput").val();
+            if (!privateKey || privateKey.length < 2) {
+                alert('Please enter private key. (A String starting with 0x)');
+                return;
+            }
+            onLoadPrivateKeyHelper(privateKey);
         }
 
         async function sendPaymentUtil(params, account) {
@@ -253,6 +372,7 @@
                 const tx = await contract.transfer(recipient, weiTransferAmount).send()
                 const receipt = await tx.waitReceipt()
                 if (receipt && receipt.blockHash) {
+                    getBalance();
                     var hrefComponent = '<a href="https://alfajores-blockscout.celo-testnet.org/search?q=' + receipt.blockHash + '" target="_blank">Check Status on Celo Blockchain</a>';
                     $("#paystatus").html(hrefComponent);
                 } else {
@@ -271,7 +391,7 @@
             var to = $("#to").val();
             var amount = $("#amount").val();
             if (!to || !amount) {
-                alert('Please enter correct address and amount.');
+                alert('Please double check the recipient address and amount.');
                 return;
             }
             const params = {
